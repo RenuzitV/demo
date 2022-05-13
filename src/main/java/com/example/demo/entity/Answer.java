@@ -1,24 +1,31 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
-public class Answer {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder=true)
+public class Answer implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
     private String content;
-    @ManyToOne (cascade = CascadeType.ALL)
-    @ToString.Exclude
+    @ManyToOne (cascade = {CascadeType.ALL})
+    @JoinColumn(name = "question_id")
+    @JsonBackReference
     private Question question;
     @JsonProperty("isCorrectAnswer")
     private boolean isCorrectAnswer;

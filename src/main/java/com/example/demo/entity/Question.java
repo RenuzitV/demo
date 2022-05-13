@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,15 +13,15 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
-public class Question {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder=true)
+public class Question implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
     private String content;
-    @OneToMany(cascade = CascadeType.ALL)
-    @ToString.Exclude
-    @RestResource(exported = false)
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<Answer> answers;
 
     @Override

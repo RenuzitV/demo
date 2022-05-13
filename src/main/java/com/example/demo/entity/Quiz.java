@@ -1,10 +1,13 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,16 +15,17 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
-public class Quiz {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder=true)
+public class Quiz implements Serializable {
     @Id
     @GeneratedValue
     @Column(nullable = false)
     private Long id;
     private String name;
-    @OneToMany (cascade = CascadeType.MERGE)
-    @ToString.Exclude
-    @RestResource(exported = false)
+    private LocalDate date;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questions;
 
     @Override

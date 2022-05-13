@@ -1,0 +1,7 @@
+
+###
+GET http://localhost:8080/quizzes?name=mid sem
+###
+GET http://localhost:8080/quizzes?date=2022-05-13
+###
+GET http://localhost:8080/quizzes?name=entry level&date=2022-05-13
