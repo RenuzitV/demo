@@ -25,8 +25,6 @@ public class Quiz implements Serializable {
     private Long id;
     private String name;
     private LocalDate date;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Question> questions;
 
     @Override
     public boolean equals(Object o) {

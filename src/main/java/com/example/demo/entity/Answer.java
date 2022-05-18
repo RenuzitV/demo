@@ -23,7 +23,7 @@ public class Answer implements Serializable {
     @GeneratedValue
     private Long id;
     private String content;
-    @ManyToOne (cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "question_id")
     @JsonBackReference
     private Question question;

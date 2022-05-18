@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Question;
+import com.example.demo.repository.AnswerRepository;
 import com.example.demo.repository.QuestionRepository;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,12 @@ public class QuestionService {
     }
 
     @Autowired
-    public QuestionService(QuestionRepository questionRepository) {
+    public QuestionService(QuestionRepository questionRepository, AnswerRepository answerRepository) {
         this.questionRepository = questionRepository;
     }
 
     public Question add(Question question) {
+        question.getAnswers().forEach((answer) -> answer.setQuestion(question));
         return questionRepository.save(question);
     }
 
