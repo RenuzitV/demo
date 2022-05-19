@@ -9,6 +9,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -29,6 +30,13 @@ public class Answer implements Serializable {
     private Question question;
     @JsonProperty("isCorrectAnswer")
     private boolean isCorrectAnswer;
+
+    @PrePersist
+    void prePersist(){
+        List<Answer> answerList = question.getAnswers();
+        answerList.add(this);
+        question.setAnswers(answerList);
+    }
 
     @Override
     public boolean equals(Object o) {

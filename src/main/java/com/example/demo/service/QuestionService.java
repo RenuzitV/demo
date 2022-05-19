@@ -29,7 +29,7 @@ public class QuestionService {
     }
 
     public Question add(Question question) {
-        question.getAnswers().forEach((answer) -> answer.setQuestion(question));
+//        question.getAnswers().forEach((answer) -> answer.setQuestion(question));
         return questionRepository.save(question);
     }
 

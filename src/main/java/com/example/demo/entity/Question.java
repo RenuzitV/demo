@@ -29,6 +29,11 @@ public class Question implements Serializable {
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 
+    @PrePersist
+    void prePersist(){
+        answers.forEach((answer) -> answer.setQuestion(this));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
